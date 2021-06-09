@@ -31,7 +31,7 @@ build_windows_amd64() {
 }
 
 build_darwin_amd64() {
-    echo "@Building darwin/amd64"
+    echo "@ Building darwin/amd64"
     GOOS="darwin" GOARCH="amd64" go build -o hosty ..
 }
 

@@ -83,14 +83,17 @@ Available Commands:
   add         Add file data
   comment     Comment file data
   delete      Delete file data
+  export      Export file to a custom location
   help        Help about any command
+  restore     Restore default hosts file
   show        Show file data
   uncomment   Uncomment file data
 
 Flags:
-  -f, --file string   use a custom /etc/hosts-like file
+  -b, --backup        backup file before editing. Backup is hidden and named with the format: .YYYYMMDDHHmmss-hosts.bck
+  -f, --file string   parse a custom /etc/hosts-like file instead of the system default one
   -h, --help          help for hosty
-  -j, --json          output in json format for easy parsing
+  -j, --json          print output in json format for easy parsing
   -q, --quiet         suppress every output except for errors
   -v, --version       version for hosty
 
