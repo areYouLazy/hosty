@@ -1,0 +1,14 @@
+# executable
+hosty
+./hosty
+hosty.exe
+./hosty.exe
+
+# MacOS files
+.DS_Store
+
+# build dir
+build/
+./build/
+build/*
+./build/*
