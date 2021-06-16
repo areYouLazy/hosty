@@ -93,7 +93,7 @@ func DetailedJSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 			LineHostnames:   v.Hostnames,
 			LineComment:     v.Comment,
 			LineIsCommented: v.IsCommented,
-			LineRaw:         strings.ReplaceAll(v.Raw, "\t", ""),
+			LineRaw:         strings.ReplaceAll(v.Raw, "\t", " "),
 		}
 
 		b, err := json.Marshal(&o)
@@ -134,7 +134,7 @@ func DetailedOutput(action string, hfl []*libhosty.HostsFileLine) string {
 			fmt.Sprintf("hostnames: %s", strings.Join(v.Hostnames, ", ")),
 			fmt.Sprintf("comment: %s", v.Comment),
 			fmt.Sprintf("is_commented: %t", v.IsCommented),
-			fmt.Sprintf("raw: %s", strings.ReplaceAll(v.Raw, "\t", "")),
+			fmt.Sprintf("raw: %s", strings.ReplaceAll(v.Raw, "\t", " ")),
 		)
 
 		buffer = append(buffer, strings.Join(buf, "\n"))
@@ -148,7 +148,7 @@ func JSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 
 	for _, v := range hfl {
 		o := JSONOutputStruct{
-			LineRaw: strings.ReplaceAll(v.Raw, "\t", ""),
+			LineRaw: strings.ReplaceAll(v.Raw, "\t", " "),
 		}
 
 		b, err := json.Marshal(&o)
@@ -179,7 +179,7 @@ func ShowOutput(hfl []*libhosty.HostsFileLine) string {
 	var buffer []string
 
 	for idx := range hfl {
-		buffer = append(buffer, strings.ReplaceAll(hfl[idx].Raw, "\t", ""))
+		buffer = append(buffer, strings.ReplaceAll(hfl[idx].Raw, "\t", " "))
 	}
 
 	return strings.Join(buffer, "\n")
