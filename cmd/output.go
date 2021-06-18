@@ -18,30 +18,30 @@ func PrintOutput(action string, details bool, hfl []*libhosty.HostsFileLine) {
 
 	// if json and details print detailed json
 	if jsonOutput && details {
-		fmt.Printf("%s", DetailedJSONOutput(action, hfl))
+		fmt.Printf("%s", getDetailedJSONOutput(action, hfl))
 		return
 	}
 
 	// if json and show print json
 	if jsonOutput && action == "show" {
-		fmt.Printf("%s", JSONOutput("show", hfl))
+		fmt.Printf("%s", getJSONOutput("show", hfl))
 		return
 	}
 
 	// if details print detailed
 	if details {
-		fmt.Printf("%s", DetailedOutput(action, hfl))
+		fmt.Println(getDetailedOutput(action, hfl))
 		return
 	}
 
 	// if json print json
 	if jsonOutput {
-		fmt.Printf("%s", JSONDoneOutput())
+		fmt.Println(getJSONDoneOutput())
 		return
 	}
 
 	if action == "show" {
-		fmt.Printf("%s", ShowOutput(hfl))
+		fmt.Println(getShowOutput(hfl))
 		return
 	}
 
@@ -49,7 +49,7 @@ func PrintOutput(action string, details bool, hfl []*libhosty.HostsFileLine) {
 	fmt.Println("done")
 }
 
-type DetailedJSONOutputStruct struct {
+type JSONDetailedOutputStruct struct {
 	Action          string   `json:"action"`
 	LineNumber      int      `json:"number"`
 	LineType        string   `json:"type"`
@@ -68,7 +68,7 @@ type JSONDone struct {
 	Done bool `json:"done"`
 }
 
-func DetailedJSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
+func getDetailedJSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 	var buffer [][]byte
 
 	for _, v := range hfl {
@@ -85,7 +85,7 @@ func DetailedJSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 			stringType = "address"
 		}
 
-		o := DetailedJSONOutputStruct{
+		o := JSONDetailedOutputStruct{
 			Action:          action,
 			LineNumber:      v.Number,
 			LineType:        stringType,
@@ -93,7 +93,7 @@ func DetailedJSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 			LineHostnames:   v.Hostnames,
 			LineComment:     v.Comment,
 			LineIsCommented: v.IsCommented,
-			LineRaw:         strings.ReplaceAll(v.Raw, "\t", " "),
+			LineRaw:         v.Raw,
 		}
 
 		b, err := json.Marshal(&o)
@@ -107,7 +107,7 @@ func DetailedJSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 	return bytes.Join(buffer, []byte("\n"))
 }
 
-func DetailedOutput(action string, hfl []*libhosty.HostsFileLine) string {
+func getDetailedOutput(action string, hfl []*libhosty.HostsFileLine) string {
 	var buffer []string
 
 	for _, v := range hfl {
@@ -134,7 +134,7 @@ func DetailedOutput(action string, hfl []*libhosty.HostsFileLine) string {
 			fmt.Sprintf("hostnames: %s", strings.Join(v.Hostnames, ", ")),
 			fmt.Sprintf("comment: %s", v.Comment),
 			fmt.Sprintf("is_commented: %t", v.IsCommented),
-			fmt.Sprintf("raw: %s", strings.ReplaceAll(v.Raw, "\t", " ")),
+			fmt.Sprintf("raw: %s", v.Raw),
 		)
 
 		buffer = append(buffer, strings.Join(buf, "\n"))
@@ -143,12 +143,12 @@ func DetailedOutput(action string, hfl []*libhosty.HostsFileLine) string {
 	return strings.Join(buffer, "\n\n")
 }
 
-func JSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
+func getJSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 	var buffer [][]byte
 
 	for _, v := range hfl {
 		o := JSONOutputStruct{
-			LineRaw: strings.ReplaceAll(v.Raw, "\t", " "),
+			LineRaw: v.Raw,
 		}
 
 		b, err := json.Marshal(&o)
@@ -162,7 +162,7 @@ func JSONOutput(action string, hfl []*libhosty.HostsFileLine) []byte {
 	return bytes.Join(buffer, []byte("\n"))
 }
 
-func JSONDoneOutput() []byte {
+func getJSONDoneOutput() []byte {
 	o := JSONDone{
 		Done: true,
 	}
@@ -175,11 +175,11 @@ func JSONDoneOutput() []byte {
 	return b
 }
 
-func ShowOutput(hfl []*libhosty.HostsFileLine) string {
+func getShowOutput(hfl []*libhosty.HostsFileLine) string {
 	var buffer []string
 
-	for idx := range hfl {
-		buffer = append(buffer, strings.ReplaceAll(hfl[idx].Raw, "\t", " "))
+	for _, v := range hfl {
+		buffer = append(buffer, v.Raw)
 	}
 
 	return strings.Join(buffer, "\n")
