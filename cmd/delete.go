@@ -23,7 +23,7 @@ Query can be done by IP or FQDN`,
 
 			// get flags
 			details, _ := cmd.Flags().GetBool("details")
-			fqdn, _ := cmd.Flags().GetString("fqdn")
+			// fqdn, _ := cmd.Flags().GetString("fqdn")
 
 			// try to parse arg as ip
 			ip := net.ParseIP(arg)
@@ -37,7 +37,7 @@ Query can be done by IP or FQDN`,
 					return
 				}
 
-				hf.RemoveHostsFileLinesByHostnameAsRegexp(fqdn)
+				hf.RemoveHostsFileLinesByHostnameAsRegexp(arg)
 			default:
 				// delete needs to get data before acting
 				// otherwise we'll not have data for detailed output
