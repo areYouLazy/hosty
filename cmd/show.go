@@ -52,7 +52,7 @@ Query can be done by IP or FQDN`,
 				}
 			} else {
 				//no argument, so just return the whole file
-				// hfl = hf.GetHostsFileLines()
+				hfl = hf.GetHostsFileLines()
 			}
 
 			PrintOutput("show", details, hfl)
