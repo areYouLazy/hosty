@@ -22,7 +22,7 @@ var (
 		Long: `Hosty is a command-line tool to interact with the /etc/hosts file.
 It allows for fast inspect and edit of the file. Main goals of this tool are to be fast, reliable and scriptable.
 Hosty uses libhosty to manipulate the file. You can find more about libhosty at https://github.com/areYouLazy/libhosty`,
-		Version: "1.0.3",
+		Version: "1.1.0",
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			// init libhosty here because only here we're sure to have
 			// all flags parsed by cobra
