@@ -32,39 +32,39 @@ Hosty is a command-line utility that allows for fast inspection and editing of `
 
 ### Precompiled packages
 
-You can install `hosty` with one of the precompiled packages in the `release` section
+You can install `hosty` with one of the precompiled packages in the [release](https://github.com/areYouLazy/hosty/releases) section
 
 ### Build
 
 Ensure you have go on your system
 
 ```console
-> go version
+root@localhost$ go version
 go version go1.16.3 linux/amd64
 ```
 
 pull the app
 
 ```console
-> go get github.com/areYouLazy/hosty
+root@localhost$ go get github.com/areYouLazy/hosty
 ```
 
 build and install
 
 ```console
-> cd github.com/areYouLazy/hosty
-> go build
-> go install
+root@localhost$ cd github.com/areYouLazy/hosty
+root@localhost$ go build
+root@localhost$ go install
 ```
 
 You should now be able to use `hosty`. Remember that `Add/Delete/Comment/Uncomment` commands needs `root` privileges.
 
 ```console
-> hosty show localhost
+root@localhost$ hosty show localhost
 127.0.0.1       localhost
 ::1             localhost
 
-> hosty comment 127.0.0.1
+root@localhost$ hosty comment 127.0.0.1
 done
 ```
 
