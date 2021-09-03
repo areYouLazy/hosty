@@ -125,7 +125,7 @@ root@localhost$ hosty comment 1.2.3.4
 done
 
 root@localhost$ # show entries with ip equal to 1.2.3.4
-root@localhost$ hostyc-li show 1.2.3.4
+root@localhost$ hosty show 1.2.3.4
 # 1.2.3.4         my.custom.dns
 
 root@localhost$ # uncomment entries with ip equal to 1.2.3.4 suppress output
@@ -138,8 +138,10 @@ root@localhost$ hosty show 1.2.3.4 --json | jq .
 }
 
 root@localhost$ # add another entry with same ip and different hostname output in json
-root@localhost$ hosty add 1.2.3.4 my.custom2.dns --json
-{"done":true}
+root@localhost$ hosty add 1.2.3.4 my.custom2.dns --json | jq .
+{
+  "done": true
+}
 
 root@localhost$ # show entries with ip equal to 1.2.3.4 output in json with details
 root@localhost$ hosty show 1.2.3.4 --json --details | jq .
@@ -180,6 +182,7 @@ root@localhost$ hosty show [PARAMETER]
 
 Show entries based on the given parameter.
 Parameter can be both IP or FQDN.
+A call to `hosty show` without arguments will dump every entry in the file
 
 ```console
 root@localhost$ # Aliases
