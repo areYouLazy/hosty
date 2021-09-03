@@ -156,7 +156,7 @@ root@localhost$ hosty show 1.2.3.4 --json --details | jq .
   ],
   "comment": "",
   "is_commented": false,
-  "raw": "127.0.0.1       my.custom.dns my.custom2.dns"
+  "raw": "1.2.3.4       my.custom.dns my.custom2.dns"
 }
 
 root@localhost$ # delete entries with ip equal to 1.2.3.4
